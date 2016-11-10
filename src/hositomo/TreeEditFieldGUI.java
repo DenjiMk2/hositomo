@@ -18,7 +18,6 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
-import javax.swing.JToolBar;
 
 public class TreeEditFieldGUI extends JFrame {
 
@@ -54,27 +53,17 @@ public class TreeEditFieldGUI extends JFrame {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{1.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
-		
-		JToolBar toolBar = new JToolBar();
-		GridBagConstraints gbc_toolBar = new GridBagConstraints();
-		gbc_toolBar.insets = new Insets(0, 0, 5, 0);
-		gbc_toolBar.gridx = 0;
-		gbc_toolBar.gridy = 0;
-		contentPane.add(toolBar, gbc_toolBar);
-		
-		JButton btnNewButton = new JButton("New button");
-		toolBar.add(btnNewButton);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
 		gbc_scrollPane_1.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane_1.gridx = 0;
-		gbc_scrollPane_1.gridy = 2;
+		gbc_scrollPane_1.gridy = 1;
 		contentPane.add(scrollPane_1, gbc_scrollPane_1);
 		
 		
@@ -91,7 +80,7 @@ public class TreeEditFieldGUI extends JFrame {
 		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 0;
-		gbc_scrollPane.gridy = 1;
+		gbc_scrollPane.gridy = 0;
 		contentPane.add(scrollPane, gbc_scrollPane);
 		JTextArea txtrIn = new TreeField(ctrl);
 		UndoHelper helper = new UndoHelper(txtrIn);
@@ -135,7 +124,7 @@ public class TreeEditFieldGUI extends JFrame {
 		
 		GridBagConstraints gbc_btnReset = new GridBagConstraints();
 		gbc_btnReset.gridx = 0;
-		gbc_btnReset.gridy = 3;
+		gbc_btnReset.gridy = 2;
 		contentPane.add(btnReset, gbc_btnReset);
 		
 	}
