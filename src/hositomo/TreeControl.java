@@ -20,6 +20,11 @@ public class TreeControl {
 		this.panel = panel;
 	}
 
+	/**
+	 * 入力されたときに走らせるメソッド
+	 * @param c 入力された文字
+	 * @param document 入力されたPlainDocument
+	 */
 	public void update(char c, PlainDocument document) {
 		// TODO 自動生成されたメソッド・スタブ
 		try {
@@ -47,6 +52,10 @@ public class TreeControl {
 
 	}
 
+	/**
+	 * 削除されたときに起動するメソッド
+	 * @param s 削除後の文章全文
+	 */
 	public void delete(String s) {
 		if (s.length() < beforS.length()) {// 削除されたとき
 			if (beforDeleteS == null)
@@ -65,6 +74,10 @@ public class TreeControl {
 		beforS = s;
 
 	}
+	
+	/**
+	 * 内部のデータを空にリセットする
+	 */
 	
 	public void reset(){
 		beforS = "";
