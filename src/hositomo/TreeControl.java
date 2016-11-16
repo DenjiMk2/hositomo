@@ -16,6 +16,11 @@ public class TreeControl {
 	String beforDeleteS = null;
 	JTextPane panel;
 	
+	
+	/**
+	 * 表示用の{@link JTextPane}をセットしてTreeControlを作成します。
+	 * @param panel 表示させたい{@link JTextPane}
+	 */
 	public TreeControl(JTextPane panel){
 		this.panel = panel;
 	}
@@ -26,7 +31,6 @@ public class TreeControl {
 	 * @param document 入力されたPlainDocument
 	 */
 	public void update(char c, PlainDocument document) {
-		// TODO 自動生成されたメソッド・スタブ
 		try {
 			String s = document.getText(0, document.getLength());
 			if (s.length() < beforS.length()) {// 削除されたとき
