@@ -97,6 +97,7 @@ public class TreeEditFieldGUI extends JFrame {
 			public void removeUpdate(DocumentEvent e) {
 //				System.err.println(txtrIn.getText());
 				ctrl.delete(txtrIn.getText());
+				System.out.println("Len = "+e.getLength()+"off = "+e.getOffset());
 				
 			}
 
