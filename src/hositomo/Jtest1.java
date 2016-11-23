@@ -1,9 +1,11 @@
 package hositomo;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Test;
 import org.hamcrest.*;
+import org.hamcrest.core.Is;
 
 public class Jtest1 {
 
@@ -13,7 +15,41 @@ public class Jtest1 {
 		tree2.init();
 		tree2.insert("曇天");
 		tree2.insert("です。");
-		assertThat(tree2.getSentence(), ("曇天です。"));//TODO
+		String s = "曇天です。";
+		assertThat(tree2.getSentence(), is("曇天です。"));
+	}
+	
+	@Test
+	public void test2(){
+		TextTree tree = new TextTree();
+		tree.init();
+		Cell c;
+		c = new Cell(2);
+		c.enable = true;
+		c.text = "本日は";
+		c.linkCell(tree.cells.get(1), null);
+		tree.cells.put(c.id, c);
+		
+		c = new Cell(3);
+		c.enable = true;
+		c.text = "晴天";
+		c.linkCell(tree.cells.get(2), null);
+		tree.cells.put(c.id, c);
+		
+		c = new Cell(4);
+		c.enable = true;
+		c.text = "なり。";
+		c.linkCell(tree.cells.get(3), null);
+		tree.cells.put(c.id, c);
+		
+		c = new Cell(5);
+		c.enable = false;
+		c.text = "曇天";
+		c.linkCell(tree.cells.get(2), tree.cells.get(4));
+		tree.cells.put(c.id, c);
+		
+		assertThat(tree.getSentence(),is("本日は晴天なり。"));
+
 	}
 
 }

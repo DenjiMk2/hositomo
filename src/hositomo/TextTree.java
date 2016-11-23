@@ -13,14 +13,31 @@ import hositomo.Cell;
  */
 public class TextTree {
 	/*
-	 * スタートセルはhash=1
+	 * スタートセルはid=1
+	 */
+	/**
+	 * このテキストツリーが所持しているCellのすべて
+	 * key = CellのID
+	 * Value = Cell本体
 	 */
 	Map<Integer,Cell> cells;
+	/**
+	 * この文の長さ
+	 */
 	int offset;
+	/**
+	 * 文章の最初のセル
+	 * Id=0である。
+	 */
 	Cell start;
+	/**
+	 * このテキストツリーに保存するIDの大元、新しくCellを追加するときはこの番号を使用し、使用したら一つ次の数字に動かしておく
+	 */
 	int gId;
+	/**
+	 * このテキストツリーの最後のCell
+	 */
 	int end;
-//	Cell startCell;
 	
 	public TextTree(){
 		super();
@@ -59,9 +76,6 @@ public class TextTree {
 		return ret;
 	}
 	
-	public String getSectence(int hash){
-		return cells.get(hash).text;
-	}
 	
 	/**
 	 * このテキストツリーの後ろに文章を追加する。
