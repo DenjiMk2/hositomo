@@ -3,6 +3,7 @@ package hositomo;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.text.*;
+import javax.swing.text.AbstractDocument.DefaultDocumentEvent;
 
 public class TreeField extends JTextArea {
 
@@ -105,8 +106,16 @@ public class TreeField extends JTextArea {
 				realOffs++;
 				// System.out.print(c);
 				ctrl.update(c, this);
+				System.out.println("c="+c+" offs ="+offs+" roffs ="+realOffs);//挿入時のオフセットをデバッグ
 
 			}
+		}
+
+		@Override
+		protected void removeUpdate(DefaultDocumentEvent chng) {
+			// TODO 自動生成されたメソッド・スタブ
+			super.removeUpdate(chng);
+//			System.out.println(chng);
 		}
 	}
 

@@ -87,6 +87,40 @@ public class TextTree {
 		cells.put(c.id, c);
 	}
 	
+	/**
+	 * このテキストツリーのoffset位置に文章を追加する。
+	 * @param s 追加したい文章
+	 * @param offset 追加したい位置（最初）
+	 */
+	public void insert(String s,int offset){
+		
+	}
+	
+	public void remove(int startOffset,int endOffset){
+		//TODO
+	}
+	
+	public void remove(int id){
+		Cell target = cells.get(id);
+		target.enable = false;
+		Cell targetForward = null;
+		for(int c : target.forwardAnchors){
+			if(cells.get(c).enable) targetForward = cells.get(c);
+		}
+		Cell targetBackward = null;
+		for(int c : target.backwardAnchors){
+			if(cells.get(c).enable) targetBackward = cells.get(c);
+		}
+		//削除ターゲットセルの前後にセルがあるかの確認 TODO この条件の時末端意外ありえるのかの検証 この状況の時の対応を実装
+		if(targetForward == null){
+			return;
+		}
+		if(targetBackward == null){
+			return;
+		}
+		targetForward.linkCell(targetForward, targetBackward);
+	}
+	
 	private void calcOffset(){
 		offset = getSentence().length();
 	}

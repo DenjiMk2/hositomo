@@ -20,7 +20,7 @@ public class Jtest1 {
 	}
 	
 	@Test
-	public void test2(){
+	public void test2(){//セルを正しく配置した際にgetSentence()
 		TextTree tree = new TextTree();
 		tree.init();
 		Cell c;
@@ -50,6 +50,16 @@ public class Jtest1 {
 		
 		assertThat(tree.getSentence(),is("本日は晴天なり。"));
 
+	}
+	@Test
+	public void removeTest(){
+		TextTree tree = new TextTree();
+		tree.init();
+		tree.insert("本日は");
+		tree.insert("晴天");
+		tree.insert("なり。");
+		tree.remove(tree.cells.get(tree.gId-2).id);
+		assertThat(tree.getSentence(),is("本日はなり。"));
 	}
 
 }

@@ -97,5 +97,14 @@ public class Cell {
 			backword.forwardAnchors.add(this.id);
 		}
 	}
+	
+	/**
+	 * この{@code Cell}を指定位置で分割して二つにする
+	 * @return 0:オフセットが小さいセル 1:オフセットが大きいセル
+	 */
+	public Cell[] split(int offset){//TODO
+		
+		return null;
+	}
 
 }

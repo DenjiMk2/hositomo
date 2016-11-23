@@ -94,7 +94,7 @@ public class TreeEditFieldGUI extends JFrame {
 			}
 
 			@Override
-			public void removeUpdate(DocumentEvent e) {
+			public void removeUpdate(DocumentEvent e) {//文字が削除されるときの挙動
 //				System.err.println(txtrIn.getText());
 				ctrl.delete(txtrIn.getText());
 				System.out.println("Len = "+e.getLength()+"off = "+e.getOffset());
