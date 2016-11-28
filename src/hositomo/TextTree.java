@@ -95,16 +95,19 @@ public class TextTree {
 	 */
 	public void insert(String s,int offset){//TODO メソッドの実装 実装中
 		Cell target = start;
-		while(offset <= 0){
+		while(offset > 0){
 			target = next(target);
 			offset-=target.text.length();
 		}
 		if(offset == 0){//もし計算後のオフセットが0だったら（セルとセルの間に挿入だった場合）
-			Cell nCell = new Cell(s,gId++,true,target,null);
-			if(next(target) == null){
-				end = nCell.id;//もし最後に追加だったらendを更新
+			if(next(target) == null){//最後に挿入の場合（insert(String s)と同じ動作が必要になる)
+				insert(s);
+//				end = cell.id;//もし最後に追加だったらendを更新
 			}else{//違った場合（最後に挿入では無かった場合）
-				nCell.linkCell(null, next(target));
+				Cell cell = new Cell(s,gId++,true,target,null);
+				cell.linkCell(null, next(target));
+				target.unLinkCell(next(target));
+				cells.put(cell.id,cell);
 			}
 		}
 		

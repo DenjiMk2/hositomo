@@ -109,6 +109,23 @@ public class Jtest1 {
 		assertThat(tree.cells.get(4).forwardAnchors.containsAll(li),is(false));
 
 	}
+	@Test
+	public void testInsert2(){//insert(String ,Int offset)のテスト
+		TextTree tree = new TextTree();
+		tree.init();
+		tree.insert("本日は");
+		tree.insert("なり。");
+		tree.insert("晴天", 3);
+		assertThat(tree.getSentence(),is("本日は晴天なり。"));//セルの分割が無い場合。（セルとセルの間にセルを挿入する）
+		
+		tree.init();
+		tree.insert("本日は");
+		tree.insert("晴天");
+		tree.insert("なり。",5);
+		assertThat(tree.getSentence(),is("本日は晴天なり。"));//offsetが一番後ろをさしているinsert(String s)と同じ動作が必要な場合。
+		
+	}
+	
 	
 
 }
