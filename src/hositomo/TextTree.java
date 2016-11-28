@@ -93,7 +93,7 @@ public class TextTree {
 	 * @param s 追加したい文章
 	 * @param offset 追加したい位置（最初）
 	 */
-	public void insert(String s,int offset){//TODO メソッドの実装 実装中
+	public void insert(String s,int offset){//TODO offsetの値が不正だった場合のチェック
 		Cell target = start;
 		while(offset > 0){
 			target = next(target);
