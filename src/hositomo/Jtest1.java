@@ -1,6 +1,10 @@
 package hositomo;
 
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.*;
 
 import org.junit.Test;
@@ -10,7 +14,7 @@ import org.hamcrest.core.Is;
 public class Jtest1 {
 
 	@Test
-	public void test() {
+	public void testInsert() {
 		TextTree tree2 = new TextTree();
 		tree2.init();
 		tree2.insert("曇天");
@@ -20,7 +24,7 @@ public class Jtest1 {
 	}
 	
 	@Test
-	public void test2(){//セルを正しく配置した際にgetSentence()
+	public void testGetSentence(){//セルを正しく配置した際にgetSentence()
 		TextTree tree = new TextTree();
 		tree.init();
 		Cell c;
@@ -52,7 +56,7 @@ public class Jtest1 {
 
 	}
 	@Test
-	public void removeTest(){
+	public void testRemove(){//Remove（int）（idを直接指定したリムーブ）が動くかのテスト
 		TextTree tree = new TextTree();
 		tree.init();
 		tree.insert("本日は");
@@ -61,5 +65,50 @@ public class Jtest1 {
 		tree.remove(tree.cells.get(tree.gId-2).id);
 		assertThat(tree.getSentence(),is("本日はなり。"));
 	}
+	@Test
+	public void testUnLinkCell(){//UnLinkCellのテスト 正常実行時
+		TextTree tree = new TextTree();
+		tree.init();
+		Cell c;
+		c = new Cell(2);
+		c.enable = true;
+		c.text = "本日は";
+		c.linkCell(tree.cells.get(1), null);
+		tree.cells.put(c.id, c);
+		
+		c = new Cell(3);
+		c.enable = true;
+		c.text = "晴天";
+		c.linkCell(tree.cells.get(2), null);
+		tree.cells.put(c.id, c);
+		
+		c = new Cell(4);
+		c.enable = true;
+		c.text = "なり。";
+		c.linkCell(tree.cells.get(3), null);
+		tree.cells.put(c.id, c);
+		
+		c = new Cell(5);
+		c.enable = false;
+		c.text = "曇天";
+		c.linkCell(tree.cells.get(2), tree.cells.get(4));
+		tree.cells.put(c.id, c);
+		tree.gId = 6;
+		
+		c.unLinkCell(tree.cells.get(2));//targetCellが前方(forward)の場合
+		
+		
+		assertTrue(c.forwardAnchors.isEmpty());
+		List<Integer> li = new ArrayList<Integer>();
+		li.add(5);
+		assertThat(tree.cells.get(2).backwardAnchors.containsAll(li),is(false));
+		
+		c.unLinkCell(tree.cells.get(4));
+		
+		assertTrue(c.backwardAnchors.isEmpty());
+		assertThat(tree.cells.get(4).forwardAnchors.containsAll(li),is(false));
+
+	}
+	
 
 }

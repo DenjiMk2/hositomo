@@ -71,7 +71,10 @@ public class Cell {
 //			this.id=h;
 //		}
 //	}
-	
+	/**
+	 * 指定されたidのCellを生成する。
+	 * @param id id値
+	 */
 	public Cell(int id) {
 		this();
 		this.id = id;
@@ -99,10 +102,35 @@ public class Cell {
 	}
 	
 	/**
+	 * このセルと対象のセルのリンクを解除する
+	 * @param target このセルとリンクを解除したいセル
+	 */
+	public void unLinkCell(Cell target){
+		//targetとthisがどのようなリンク方法（どっちがフォワードなのか）を探る
+		boolean this2target = false;
+		//thisのbackwardAnchorsの中にtargetのidがあればbooleanをtrueにする（this->taregetの並びと判定する）
+		for(int i : this.backwardAnchors){
+			if(i == target.id) this2target=true;
+		}
+		//TODO 実はリンクされていなかったときの記述
+		if(this2target){
+			this.backwardAnchors.removeIf(a -> {return a == target.id;});
+//			this.backwardAnchors.remove(target.id);
+			target.forwardAnchors.removeIf(a -> {return a == this.id;});
+//			target.forwardAnchors.remove(this.id);
+		}else{
+			this.forwardAnchors.removeIf(a -> {return a == target.id;});
+//			this.forwardAnchors.remove(target.id);//removeはその値を消すものではない
+			target.backwardAnchors.removeIf(a -> {return a == this.id;});
+//			target.backwardAnchors.remove(this.id);
+		}
+	}
+	
+	/**
 	 * この{@code Cell}を指定位置で分割して二つにする
 	 * @return 0:オフセットが小さいセル 1:オフセットが大きいセル
 	 */
-	public Cell[] split(int offset){//TODO
+	public Cell[] split(int offset){//TODO メソッドの実装
 		
 		return null;
 	}

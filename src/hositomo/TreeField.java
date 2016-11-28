@@ -15,7 +15,6 @@ public class TreeField extends JTextArea {
 
 	public TreeField() {
 		super();
-		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
 	public TreeField(TreeControl c) {
@@ -25,27 +24,22 @@ public class TreeField extends JTextArea {
 
 	public TreeField(Document doc, String text, int rows, int columns) {
 		super(doc, text, rows, columns);
-		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
 	public TreeField(Document doc) {
 		super(doc);
-		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
 	public TreeField(int rows, int columns) {
 		super(rows, columns);
-		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
 	public TreeField(String text, int rows, int columns) {
 		super(text, rows, columns);
-		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
 	public TreeField(String text) {
 		super(text);
-		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
 	/**
@@ -113,7 +107,6 @@ public class TreeField extends JTextArea {
 
 		@Override
 		protected void removeUpdate(DefaultDocumentEvent chng) {
-			// TODO 自動生成されたメソッド・スタブ
 			super.removeUpdate(chng);
 //			System.out.println(chng);
 		}

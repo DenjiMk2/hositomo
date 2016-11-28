@@ -11,6 +11,7 @@ import hositomo.Cell;
  * @author Denji-mk2
  *
  */
+//offsetは0インデックス
 public class TextTree {
 	/*
 	 * スタートセルはid=1
@@ -58,7 +59,7 @@ public class TextTree {
 	 * @return 現在の文面
 	 */
 	
-	public String getSentence(){//TODO
+	public String getSentence(){
 		String ret = "";
 		Cell focas;
 		focas = start;
@@ -66,11 +67,11 @@ public class TextTree {
 		while(focas != null){
 			ret = ret + focas.text;
 			Cell beforFocas = focas;
-			focas = null;
+			focas = next(beforFocas);
 			// 今のフォーカスセル(focas)の次のセルを検索する。複数ある可能性があるが、必要なのはennableがtrueなセルなので、それを探してそれをfocasに入れる。
-			for(int c : beforFocas.backwardAnchors){
-				if(cells.get(c).enable) focas = cells.get(c);
-			}
+//			for(int c : beforFocas.backwardAnchors){
+//				if(cells.get(c).enable) focas = cells.get(c);
+//			}
 		}
 		
 		return ret;
@@ -92,25 +93,40 @@ public class TextTree {
 	 * @param s 追加したい文章
 	 * @param offset 追加したい位置（最初）
 	 */
-	public void insert(String s,int offset){
+	public void insert(String s,int offset){//TODO メソッドの実装 実装中
+		Cell target = start;
+		while(offset <= 0){
+			target = next(target);
+			offset-=target.text.length();
+		}
+		if(offset == 0){//もし計算後のオフセットが0だったら（セルとセルの間に挿入だった場合）
+			Cell nCell = new Cell(s,gId++,true,target,null);
+			if(next(target) == null){
+				end = nCell.id;//もし最後に追加だったらendを更新
+			}else{//違った場合（最後に挿入では無かった場合）
+				nCell.linkCell(null, next(target));
+			}
+		}
 		
 	}
-	
-	public void remove(int startOffset,int endOffset){
-		//TODO
+	/**
+	 * このテキストツリーの指定された位置の文字を削除する。
+	 * @param startOffset 削除の初めの位置
+	 * @param length 削除する長さ
+	 */
+	public void remove(int startOffset,int length){
+		//TODO メソッドの実装
 	}
 	
+	/**
+	 * 指定されたidのセルを文章中から削除する。（データを消すわけではない）
+	 * @param id 削除したいセルの{@code id}値
+	 */
 	public void remove(int id){
 		Cell target = cells.get(id);
 		target.enable = false;
-		Cell targetForward = null;
-		for(int c : target.forwardAnchors){
-			if(cells.get(c).enable) targetForward = cells.get(c);
-		}
-		Cell targetBackward = null;
-		for(int c : target.backwardAnchors){
-			if(cells.get(c).enable) targetBackward = cells.get(c);
-		}
+		Cell targetForward = next(target);
+		Cell targetBackward = back(target);
 		//削除ターゲットセルの前後にセルがあるかの確認 TODO この条件の時末端意外ありえるのかの検証 この状況の時の対応を実装
 		if(targetForward == null){
 			return;
@@ -118,11 +134,25 @@ public class TextTree {
 		if(targetBackward == null){
 			return;
 		}
-		targetForward.linkCell(targetForward, targetBackward);
+		targetBackward.linkCell(null, targetForward);
 	}
 	
 	private void calcOffset(){
 		offset = getSentence().length();
+	}
+	
+	private Cell next(Cell c){
+		for(int i : c.backwardAnchors){
+			if(cells.get(i).enable) return cells.get(i);
+		}
+		return null;
+	}
+	
+	private Cell back(Cell c){
+		for(int i : c.forwardAnchors){
+			if(cells.get(i).enable) return cells.get(i);
+		}
+		return null;
 	}
 	
 }
