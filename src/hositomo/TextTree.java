@@ -169,7 +169,7 @@ public class TextTree {
 	 * この{@code Cell}を指定位置で分割して二つにする
 	 * @return 0:オフセットが小さいセル 1:オフセットが大きいセル
 	 */
-	public Cell[] split(Cell cell, int offset){//TODO メソッドの実装
+	public Cell[] split(Cell cell, int offset){
 		String[] splitString = Cell.splitByLength(cell.text,offset);
 		Cell[] ret = new Cell[2];
 		for(int i=0;i<2;i++){
