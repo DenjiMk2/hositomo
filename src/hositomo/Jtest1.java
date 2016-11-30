@@ -124,6 +124,14 @@ public class Jtest1 {
 		tree.insert("なり。",5);
 		assertThat(tree.getSentence(),is("本日は晴天なり。"));//offsetが一番後ろをさしているinsert(String s)と同じ動作が必要な場合。
 		
+		TextTree tree2 = new TextTree();
+		tree2.init();
+		tree2.insert("本日は");
+		tree2.insert("晴天なり。");
+		tree2.insert("まことに", 3);
+		tree2.insert("かも", 9);
+		assertThat(tree2.getSentence(),is("本日はまことに晴天かもなり。"));
+		
 	}
 	
 	@Test
@@ -169,7 +177,7 @@ public class Jtest1 {
 		tree.gId = 6;
 		
 		tree.split(tree.cells.get(3), 1);
-		System.out.println(tree.cells.get(6).text + ":"+tree.cells.get(7).text);
+//		System.out.println(tree.cells.get(6).text + ":"+tree.cells.get(7).text);
 		
 		assertThat(tree.cells.get(6).text,is("晴"));
 		assertThat(tree.cells.get(7).text,is("天"));
