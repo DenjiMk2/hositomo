@@ -3,6 +3,8 @@ package hositomo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Cellは文章中の一部分のテキストを表す。
@@ -80,6 +82,11 @@ public class Cell {
 		this.id = id;
 	}
 
+	@Override
+	public String toString() {
+		return forwardAnchors + text + backwardAnchors;
+	}
+
 	/**
 	 * このセルにセルをつなげる
 	 * @param forward このセルの前方（オフセットが小さい）のセル（null可能)
@@ -126,13 +133,32 @@ public class Cell {
 		}
 	}
 	
+
+	
 	/**
-	 * この{@code Cell}を指定位置で分割して二つにする
-	 * @return 0:オフセットが小さいセル 1:オフセットが大きいセル
+	 * 文字列を長さで分割する
+	 * @param s 分割したい文字列
+	 * @param length 分割する長さ
+	 * @return 0:分割した最初の文字列　1:分割した最後の文字列
 	 */
-	public Cell[] split(int offset){//TODO メソッドの実装
+//	public static List<String> splitByLength(String s, int length) {
+//	    List<String> list = new ArrayList<>();
+//	    if (!s.isEmpty()) {
+//	        Matcher m = Pattern.compile("^[\\s\\S]").matcher(s);
+////	        Matcher m = Pattern.compile("[\\s\\S]{1," + length + "}").matcher(s);
+//	        while (m.find()) {
+//	            list.add(m.group());
+//	        }
+//	    }
+//	    return list;
+//	}
+	public static String[] splitByLength(String s,int length){
+		String[] ret = new String[2];
+
+		ret[0] = s.substring(0, length);
+		ret[1] = s.substring(length);
 		
-		return null;
+		return ret;
 	}
 
 }

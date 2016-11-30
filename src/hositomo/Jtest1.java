@@ -126,6 +126,57 @@ public class Jtest1 {
 		
 	}
 	
+	@Test
+	public void testSplitByLength(){
+		String s = "本日は晴天なり。";
+		String[] ss = Cell.splitByLength(s, 3);
+		String[] ac = new String[2];
+		ac[0] = "本日は";
+		ac[1] = "晴天なり。";
+		
+		//		System.out.println(kotae.toString());
+		assertArrayEquals(ss, ac);
+		
+	}
+	@Test
+	public void splitTest(){
+		TextTree tree = new TextTree();
+		tree.init();
+		Cell c;
+		c = new Cell(2);
+		c.enable = true;
+		c.text = "本日は";
+		c.linkCell(tree.cells.get(1), null);
+		tree.cells.put(c.id, c);
+		
+		c = new Cell(3);
+		c.enable = true;
+		c.text = "晴天";
+		c.linkCell(tree.cells.get(2), null);
+		tree.cells.put(c.id, c);
+		
+		c = new Cell(4);
+		c.enable = true;
+		c.text = "なり。";
+		c.linkCell(tree.cells.get(3), null);
+		tree.cells.put(c.id, c);
+		
+		c = new Cell(5);
+		c.enable = false;
+		c.text = "曇天";
+		c.linkCell(tree.cells.get(2), tree.cells.get(4));
+		tree.cells.put(c.id, c);
+		tree.gId = 6;
+		
+		tree.split(tree.cells.get(3), 1);
+		System.out.println(tree.cells.get(6).text + ":"+tree.cells.get(7).text);
+		
+		assertThat(tree.cells.get(6).text,is("晴"));
+		assertThat(tree.cells.get(7).text,is("天"));
+		assertThat(tree.getSentence(),is("本日は晴天なり。"));
+		List<Integer> li = new ArrayList<Integer>();
+	}
+	
 	
 
 }

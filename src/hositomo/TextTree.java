@@ -54,6 +54,13 @@ public class TextTree {
 	}
 	
 	
+	
+	
+	@Override
+	public String toString() {//TODO toStringの整備 ツリー構造がわかるような
+		return getSentence();
+	}
+
 	/**
 	 * このテキストツリーの現在の文章を取得する。
 	 * @return 現在の文面
@@ -156,6 +163,33 @@ public class TextTree {
 			if(cells.get(i).enable) return cells.get(i);
 		}
 		return null;
+	}
+	
+	/**
+	 * この{@code Cell}を指定位置で分割して二つにする
+	 * @return 0:オフセットが小さいセル 1:オフセットが大きいセル
+	 */
+	public Cell[] split(Cell cell, int offset){//TODO メソッドの実装
+		String[] splitString = Cell.splitByLength(cell.text,offset);
+		Cell[] ret = new Cell[2];
+		for(int i=0;i<2;i++){
+			ret[i] = new Cell(splitString[i],gId++,true,null,null);
+			cells.put(ret[i].id, ret[i]);
+		}
+		ret[0].linkCell(null, ret[1]);
+		//二つの前方をつなげる
+		List<Integer> tempList = new ArrayList<Integer>(cell.forwardAnchors);
+		for(int i : tempList){
+			ret[0].linkCell(cells.get(i), null);
+		}
+		//後方をつなげる
+		tempList = new ArrayList<Integer>(cell.backwardAnchors);
+		for(int i : tempList){
+			ret[1].linkCell(null, cells.get(i));
+		}
+		cell.enable=false;
+		
+		return ret;
 	}
 	
 }
