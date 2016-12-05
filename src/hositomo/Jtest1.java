@@ -281,6 +281,16 @@ public class Jtest1 {
 		l.add(3);
 		tree.remove(l);
 		assertThat(tree.getSentence(),is("本日は"));//一番後ろまで消す処理
+
+		l.clear();
+		l.add(6);
+		assertThat(tree.cells.get(7).forwardAnchors.containsAll(l),is(true));
+		assertThat(tree.cells.get(7).forwardAnchors.size(),is(l.size()));
+		l.clear();
+		l.add(7);
+		l.add(3);
+		assertThat(tree.cells.get(8).forwardAnchors.containsAll(l),is(true));
+		assertThat(tree.cells.get(8).forwardAnchors.size(),is(l.size()));
 	}
 	
 	
