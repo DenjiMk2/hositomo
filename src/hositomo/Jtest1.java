@@ -185,6 +185,99 @@ public class Jtest1 {
 		List<Integer> li = new ArrayList<Integer>();
 	}
 	
+	@Test
+	public void removeTest2(){//remove(int,int)のテスト
+		TextTree tree = new TextTree();
+		tree.init();
+		Cell c;
+		c = new Cell(2);
+		c.enable = true;
+		c.text = "本日は";
+		c.linkCell(tree.cells.get(1), null);
+		tree.cells.put(c.id, c);
+		
+		c = new Cell(3);
+		c.enable = true;
+		c.text = "晴天";
+		c.linkCell(tree.cells.get(2), null);
+		tree.cells.put(c.id, c);
+		
+		c = new Cell(4);
+		c.enable = true;
+		c.text = "なり。";
+		c.linkCell(tree.cells.get(3), null);
+		tree.cells.put(c.id, c);
+		
+		c = new Cell(5);
+		c.enable = false;
+		c.text = "曇天";
+		c.linkCell(tree.cells.get(2), tree.cells.get(4));
+		tree.cells.put(c.id, c);
+		tree.gId = 6;
+		
+		tree.remove(1, 1);
+		assertThat(tree.getSentence(),is("本は晴天なり。"));
+		tree.remove(2,4);
+		assertThat(tree.getSentence(),is("本は。"));
+	}
+	
+	@Test
+	public void removeTest3(){//remove(int[])の場合
+		TextTree tree = new TextTree();
+		tree.init();
+		Cell c;
+		c = new Cell(2);
+		c.enable = true;
+		c.text = "本日は";
+		c.linkCell(tree.cells.get(1), null);
+		tree.cells.put(c.id, c);
+		
+		c = new Cell(3);
+		c.enable = true;
+		c.text = "晴天";
+		c.linkCell(tree.cells.get(2), null);
+		tree.cells.put(c.id, c);
+		
+		c = new Cell(4);
+		c.enable = true;
+		c.text = "なり。";
+		c.linkCell(tree.cells.get(3), null);
+		tree.cells.put(c.id, c);
+		
+		c = new Cell(5);
+		c.enable = false;
+		c.text = "曇天";
+		c.linkCell(tree.cells.get(2), tree.cells.get(4));
+		tree.cells.put(c.id, c);
+		
+		c = new Cell(6);
+		c.enable = true;
+		c.text = "ようようなりて";
+		c.linkCell(tree.cells.get(4), null);
+		tree.cells.put(c.id, c);
+		
+		c = new Cell(7);
+		c.enable = true;
+		c.text = "白くなりゆく";
+		c.linkCell(tree.cells.get(6), null);
+		tree.cells.put(c.id, c);
+		
+		c = new Cell(8);
+		c.enable = true;
+		c.text = "山。";
+		c.linkCell(tree.cells.get(7), null);
+		tree.cells.put(c.id, c);
+		
+		tree.gId = 9;
+		
+		List<Integer> l = new ArrayList<Integer>();
+		l.add(4);
+		l.add(6);
+		l.add(7);
+		tree.remove(l);
+		assertThat(tree.getSentence(),is("本日は晴天山。"));
+	}
+	
 	
 
 }

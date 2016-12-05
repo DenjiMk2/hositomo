@@ -132,7 +132,30 @@ public class TextTree {
 	 *            削除する長さ
 	 */
 	public void remove(int startOffset, int length) {
-		// TODO メソッドの実装
+		Cell target = start;
+
+		// startOffset -= next(target).text.length();
+		// 削除箇所の始まりを確認
+		while (startOffset > 0) {
+			target = next(target);
+			startOffset -= target.text.length();
+		}
+		if (startOffset != 0) {// セルの途中だったら分割する
+			Cell[] sCells = split(target, Math.abs(startOffset) - 1);
+			target = sCells[0];
+		}
+		// どのセルまで削除すれば良いのかの確認
+		while (length > 0) {
+			target = next(target);// TODO オーバーする可能性
+			length -= target.text.length();
+			if (length < 0) {// 消し過ぎた場合
+				Cell[] sCells = split(target, target.text.length() - Math.abs(length));
+				target = sCells[0];
+			}
+			remove(target.id);
+		}
+		// TODO 消したときに関係が変になっている？
+		// TODO エンドの更新処理
 	}
 
 	/**
@@ -154,6 +177,41 @@ public class TextTree {
 			return;
 		}
 		targetBackward.linkCell(null, targetForward);
+	}
+
+	public void remove(List<Integer> ids){
+		Cell target = start;
+		boolean bre = true;
+		while(bre){//消すブロックの最初を確認
+			target = next(target);
+			for(int i : ids){
+				if(bre)bre = (i == target.id ? false : true);
+			}
+		}
+		Cell rStart = target;
+		bre = true;
+		while(bre){//消すブロックの最後を確認
+			if(next(target)== null){
+				bre = false;
+			}else{
+				target = next(target);
+				boolean bre2 = false;//ターゲットのidをidsに見つけたら（まだ削除するセルだったら）true まだ見つけてなかったらfalse
+				for(int i : ids){
+					if(!bre2){
+						bre2 = (i == target.id ? true : false);
+					}
+				}
+				if(!bre2) target = back(target);
+				bre = bre2;
+			}
+		}
+		for(int i : ids){
+			cells.get(i).enable=false;
+		}
+		if(next(target) != null){
+			back(rStart).linkCell(null,next(target));
+		}
+		// TODO 実行中マーカー
 	}
 
 	private void calcOffset() {
