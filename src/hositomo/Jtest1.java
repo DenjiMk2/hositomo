@@ -275,7 +275,12 @@ public class Jtest1 {
 		l.add(6);
 		l.add(7);
 		tree.remove(l);
-		assertThat(tree.getSentence(),is("本日は晴天山。"));
+		assertThat(tree.getSentence(),is("本日は晴天山。"));//真ん中のセルを消す処理
+		l.clear();
+		l.add(8);
+		l.add(3);
+		tree.remove(l);
+		assertThat(tree.getSentence(),is("本日は"));//一番後ろまで消す処理
 	}
 	
 	
