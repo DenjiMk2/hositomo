@@ -219,6 +219,21 @@ public class Jtest1 {
 		assertThat(tree.getSentence(),is("本は晴天なり。"));
 		tree.remove(2,4);
 		assertThat(tree.getSentence(),is("本は。"));
+		
+		List<Integer> l = new ArrayList<Integer>();
+		l.clear();
+		l.add(3);
+		l.add(5);
+		l.add(11);
+		assertThat(tree.cells.get(9).backwardAnchors.containsAll(l),is(true));
+		assertThat(tree.cells.get(9).backwardAnchors.size(),is(l.size()));
+		
+		l.clear();
+		l.add(8);
+		l.add(6);
+		assertThat(tree.cells.get(9).forwardAnchors.containsAll(l),is(true));
+		assertThat(tree.cells.get(9).forwardAnchors.size(),is(l.size()));
+		
 	}
 	
 	@Test

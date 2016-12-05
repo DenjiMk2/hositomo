@@ -145,6 +145,7 @@ public class TextTree {
 			target = sCells[0];
 		}
 		// どのセルまで削除すれば良いのかの確認
+		List<Integer> list = new ArrayList<Integer>();
 		while (length > 0) {
 			target = next(target);// TODO オーバーする可能性
 			length -= target.text.length();
@@ -152,9 +153,10 @@ public class TextTree {
 				Cell[] sCells = split(target, target.text.length() - Math.abs(length));
 				target = sCells[0];
 			}
-			remove(target.id);
+			list.add(target.id);
 		}
-		// TODO 消したときに関係が変になっている？
+		remove(list);
+		// TODO 実行中マーカー
 		// TODO エンドの更新処理
 	}
 
@@ -211,7 +213,6 @@ public class TextTree {
 		if(next(target) != null){
 			back(rStart).linkCell(null,next(target));
 		}
-		// TODO 実行中マーカー
 	}
 
 	private void calcOffset() {
