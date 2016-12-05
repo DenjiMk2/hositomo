@@ -156,7 +156,6 @@ public class TextTree {
 			list.add(target.id);
 		}
 		remove(list);
-		// TODO 実行中マーカー
 		// TODO エンドの更新処理
 	}
 
