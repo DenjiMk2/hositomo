@@ -7,7 +7,7 @@ import javax.swing.text.AbstractDocument.DefaultDocumentEvent;
 
 public class TreeField extends JTextArea {
 
-	TreeControl ctrl;
+	TextTreeControler ctrl;
 
 	/**
 	 * コンストラクタ
@@ -17,7 +17,7 @@ public class TreeField extends JTextArea {
 		super();
 	}
 
-	public TreeField(TreeControl c) {
+	public TreeField(TextTreeControler c) {
 		super();
 		this.ctrl = c;
 	}
@@ -91,6 +91,7 @@ public class TreeField extends JTextArea {
 
 			// 実際に挿入をするオフセット
 			int realOffs = offs;
+//			System.out.println("offs="+offs+" rOffs="+realOffs+" len"+str.length());
 
 			// 入力文字列を一文字ずつ判定
 			for (int i = 0; i < str.length(); i++) {
@@ -99,8 +100,8 @@ public class TreeField extends JTextArea {
 				super.insertString(realOffs, String.valueOf(c), a);
 				realOffs++;
 				// System.out.print(c);
-				ctrl.update(c, this);
-				System.out.println("c="+c+" offs ="+offs+" roffs ="+realOffs);//挿入時のオフセットをデバッグ
+				ctrl.insert(String.valueOf(c), offs);
+//				System.out.println("i c="+c+" offs ="+offs+" roffs ="+realOffs);//挿入時のオフセットをデバッグ
 
 			}
 		}
@@ -108,7 +109,7 @@ public class TreeField extends JTextArea {
 		@Override
 		protected void removeUpdate(DefaultDocumentEvent chng) {
 			super.removeUpdate(chng);
-//			System.out.println(chng);
+//			System.out.println(chng.getChange());
 		}
 	}
 
