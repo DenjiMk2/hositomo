@@ -22,7 +22,7 @@ import javax.swing.JScrollPane;
 public class TreeEditFieldGUI extends JFrame {
 
 	private JPanel contentPane;
-	private TreeControl ctrl;
+	private TextTreeControler ctrl;
 
 	/**
 	 * Launch the application.
@@ -73,7 +73,8 @@ public class TreeEditFieldGUI extends JFrame {
 		scrollPane_1.setViewportView(textOut);
 		textOut.setEditable(false);
 		
-		ctrl = new TreeControl(textOut);
+		ctrl = new TextTreeControler();
+		ctrl.init();
 		
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -96,8 +97,8 @@ public class TreeEditFieldGUI extends JFrame {
 			@Override
 			public void removeUpdate(DocumentEvent e) {//文字が削除されるときの挙動
 //				System.err.println(txtrIn.getText());
-				ctrl.delete(txtrIn.getText());
-				System.out.println("Len = "+e.getLength()+"off = "+e.getOffset());
+				ctrl.remove(txtrIn.getText(),e.getOffset(),e.getLength());
+//				System.out.println("r Len = "+e.getLength()+"　off = "+e.getOffset());
 				
 			}
 
@@ -116,9 +117,8 @@ public class TreeEditFieldGUI extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ctrl.reset();
+				ctrl.init();
 				txtrIn.requestFocus();
-				
 			}
 			
 		});
