@@ -308,6 +308,26 @@ public class Jtest1 {
 		assertThat(tree.cells.get(8).forwardAnchors.size(),is(l.size()));
 	}
 	
+	@Test
+	public void allTest1(){
+		TextTree tree = new TextTree();
+		tree.init();
+		tree.insert("こ");
+		tree.insert("こ");
+		tree.insert("か");
+		tree.insert("ら");
+		tree.insert("か");
+		tree.insert("え");
+		tree.insert("る");
+		tree.remove(6,1);
+		tree.remove(5,1);
+		tree.remove(4, 1);
+		tree.insert("し");
+		tree.insert("ん");
+		tree.insert("き");
+		assertThat(tree.getSentence(), is("ここからしんき"));
+	}
+	
 	
 
 }
