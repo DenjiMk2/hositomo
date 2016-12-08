@@ -23,7 +23,8 @@ public class TextTreeControler {
 	List<Integer> deleteList = new ArrayList<Integer>();
 	JPanel panel = new JPanel();
 	
-	public void init(){
+	public void init(JPanel panel){
+		this.panel = panel;
 		tree.init();
 		GridBagLayout mgr = new GridBagLayout();
 		panel.setLayout(mgr);

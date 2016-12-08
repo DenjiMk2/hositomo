@@ -66,15 +66,12 @@ public class TreeEditFieldGUI extends JFrame {
 		gbc_scrollPane_1.gridy = 1;
 		contentPane.add(scrollPane_1, gbc_scrollPane_1);
 		
-		
-		
-		
-		JTextPane textOut = new JTextPane();
-		scrollPane_1.setViewportView(textOut);
-		textOut.setEditable(false);
+		JPanel panel = new JPanel();
+		ctrl.panel = panel;
+		scrollPane_1.setViewportView(panel);
 		
 		ctrl = new TextTreeControler();
-		ctrl.init();
+		ctrl.init(panel);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -84,7 +81,6 @@ public class TreeEditFieldGUI extends JFrame {
 		gbc_scrollPane.gridy = 0;
 		contentPane.add(scrollPane, gbc_scrollPane);
 		JTextArea txtrIn = new TreeField(ctrl);
-		UndoHelper helper = new UndoHelper(txtrIn,textOut);
 		scrollPane.setViewportView(txtrIn);
 		txtrIn.setLineWrap(true);
 		txtrIn.getDocument().addDocumentListener(new DocumentListener(){
@@ -117,7 +113,7 @@ public class TreeEditFieldGUI extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ctrl.init();
+				ctrl.init(panel);
 				txtrIn.requestFocus();
 			}
 			
