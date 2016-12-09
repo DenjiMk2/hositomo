@@ -230,7 +230,7 @@ public class TextTree {
 		offset = getSentence().length();
 	}
 
-	private Cell next(Cell c) {
+	public Cell next(Cell c) {
 		for (int i : c.backwardAnchors) {
 			if (cells.get(i).enable)
 				return cells.get(i);
@@ -238,7 +238,7 @@ public class TextTree {
 		return null;
 	}
 
-	private Cell back(Cell c) {
+	public Cell back(Cell c) {
 		for (int i : c.forwardAnchors) {
 			if (cells.get(i).enable)
 				return cells.get(i);
