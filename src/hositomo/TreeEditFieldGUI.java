@@ -29,7 +29,8 @@ public class TreeEditFieldGUI extends JFrame {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			public void run() {
+		
+		public void run() {
 				try {
 					TreeEditFieldGUI frame = new TreeEditFieldGUI();
 					frame.setVisible(true);
@@ -67,7 +68,6 @@ public class TreeEditFieldGUI extends JFrame {
 		contentPane.add(scrollPane_1, gbc_scrollPane_1);
 		
 		JPanel panel = new JPanel();
-		ctrl.panel = panel;
 		scrollPane_1.setViewportView(panel);
 		
 		ctrl = new TextTreeControler();

@@ -1,12 +1,16 @@
 package hositomo;
 
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 /**
  * SwingとTextTreeの間を取り持つクラス
@@ -15,7 +19,7 @@ import javax.swing.JPanel;
  *
  */
 public class TextTreeControler {
-	TextTree tree = new TextTree();
+	TextTree tree;
 	String beforS = "";
 	String baseS = "";
 	String crlf = System.getProperty("line.separator");
@@ -24,10 +28,12 @@ public class TextTreeControler {
 	JPanel panel = new JPanel();
 	
 	public void init(JPanel panel){
+		tree  = new TextTree();
 		this.panel = panel;
 		tree.init();
 		GridBagLayout mgr = new GridBagLayout();
 		panel.setLayout(mgr);
+		draw();
 	}
 	/**
 	 * 文字を入力するメソッド
@@ -42,6 +48,7 @@ public class TextTreeControler {
 
 		System.out.println(tree.getSentence());
 		System.out.println("in s = "+s+" offs = "+offs);
+		draw();
 	}
 	/**
 	 * 文字を削除するメソッド
@@ -69,7 +76,43 @@ public class TextTreeControler {
 //				+ crlf + s);
 
 		beforS = s;
+		
+		draw();
 
+	}
+	
+	/**
+	 * panelにツリーを描画する
+	 */
+	private void draw(){
+		panel.removeAll();
+		Cell target = tree.start;
+		ArrayList<Integer> mainList = new ArrayList<Integer>();
+		int x = 0;
+		//getSentenceを表示
+		while(target != null){
+			mainList.add(target.id);
+			JLabel button = new JLabel(target.text);
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.insets = new Insets(0, 0, 5, 5);
+			gbc.gridx = x++;
+			gbc.gridy = 0;
+			panel.add(button, gbc);
+			target = tree.next(target);
+		}
+		target = tree.start;
+		while(target != null){
+			
+			for(int i : target.backwardAnchors){
+				if(mainList.contains(i)) continue;//センテンスに含まれるセルの場合スキップ
+				
+				
+			}
+			
+			//TODO 作業箇所
+			target = tree.next(target);
+		}
+		panel.repaint();
 	}
 
 }
