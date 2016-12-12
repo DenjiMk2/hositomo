@@ -100,19 +100,19 @@ public class TextTreeControler {
 			panel.add(button, gbc);
 			target = tree.next(target);
 		}
-
-		panel.repaint();
-	}
-	private class DrawCell{
-		Cell cell;
-		int offset;
-		
-		public DrawCell(Cell cell, int offset) {
-			super();
-			this.offset = offset;
+		target = tree.start;
+		while(target != null){
+			
+			for(int i : target.backwardAnchors){
+				if(mainList.contains(i)) continue;//センテンスに含まれるセルの場合スキップ
+				
+				
+			}
+			
+			//TODO 作業箇所
+			target = tree.next(target);
 		}
-		
-		
+		panel.repaint();
 	}
 
 }
