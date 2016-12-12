@@ -114,6 +114,7 @@ public class TreeEditFieldGUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				ctrl.init(panel);
+				txtrIn.setText("");
 				txtrIn.requestFocus();
 			}
 			

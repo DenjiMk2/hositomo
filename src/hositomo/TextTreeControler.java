@@ -94,7 +94,7 @@ public class TextTreeControler {
 			mainList.add(target.id);
 			JLabel button = new JLabel(target.text);
 			GridBagConstraints gbc = new GridBagConstraints();
-			gbc.insets = new Insets(0, 0, 5, 5);
+//			gbc.insets = new Insets(0, 0, 5, 5);
 			gbc.gridx = x++;
 			gbc.gridy = 0;
 			panel.add(button, gbc);
@@ -112,6 +112,7 @@ public class TextTreeControler {
 			//TODO 作業箇所
 			target = tree.next(target);
 		}
+		panel.revalidate();
 		panel.repaint();
 	}
 
