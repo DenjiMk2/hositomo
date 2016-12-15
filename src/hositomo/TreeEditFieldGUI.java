@@ -81,6 +81,7 @@ public class TreeEditFieldGUI extends JFrame {
 		gbc_scrollPane.gridy = 0;
 		contentPane.add(scrollPane, gbc_scrollPane);
 		JTextArea txtrIn = new TreeField(ctrl);
+		UndoHelper helper = new UndoHelper(txtrIn,ctrl);
 		scrollPane.setViewportView(txtrIn);
 		txtrIn.setLineWrap(true);
 		txtrIn.getDocument().addDocumentListener(new DocumentListener(){

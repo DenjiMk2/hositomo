@@ -30,12 +30,12 @@ public class UndoHelper {
     public static final String ACTION_KEY_SAVE = "save";
     private JTextComponent textC;
     UndoManager undoManager = new UndoManager();
-    private JTextPane logTextC;
+    private TextTreeControler logC;
     
     /** 指定されたテキストコンポーネントにUndo/Redo機能をつけます。　*/
-    public UndoHelper(JTextComponent textComponent,JTextPane logTextComponent) {
+    public UndoHelper(JTextComponent textComponent,TextTreeControler logComponent) {
     	textC = textComponent;
-    	logTextC = logTextComponent;
+    	logC = logComponent;
         ActionMap amap = textComponent.getActionMap();
         InputMap imap = textComponent.getInputMap();
         if (amap.get(ACTION_KEY_UNDO) == null) {
@@ -118,7 +118,7 @@ public class UndoHelper {
 				FileWriter logFileWriter = new FileWriter(logFile);
 				fileWriter.write(textC.getText());
 				fileWriter.close();
-				logFileWriter.write(logTextC.getText());
+				logFileWriter.write(logC.getLogText());//TODO getLogTextの実装
 				logFileWriter.close();
 			} catch (IOException e1) {
 				// TODO 自動生成された catch ブロック

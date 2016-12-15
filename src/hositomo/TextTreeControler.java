@@ -159,7 +159,7 @@ public class TextTreeControler {
 //					System.out.println("diff" + diff + " buff "+buff);
 					StackCell tempCell = new StackCell(tree.cells.get(i));
 					tempCell.pos.put("x", scell.pos.get("x") + 1);
-					System.out.println(scell.cell+"y scell "+scell.pos.get("y") + " diff = "+diff+"buff = "+buff);
+//					System.out.println(scell.cell+"y scell "+scell.pos.get("y") + " diff = "+diff+"buff = "+buff);
 					tempCell.pos.put("y", scell.pos.get("y") + diff);
 					tempStacks.add(tempCell);
 					diff++;
@@ -175,7 +175,7 @@ public class TextTreeControler {
 
 		panel.revalidate();
 		panel.repaint();
-		System.out.println(tree.cells);
+//		System.out.println(tree.cells);
 	}
 
 	/*
@@ -209,7 +209,11 @@ public class TextTreeControler {
 		gbc.gridx = x;
 		gbc.gridy = y;
 		panel.add(label, gbc);
-		System.out.println(x+","+y+"text:"+text);
+//		System.out.println(x+","+y+"text:"+text);
+	}
+
+	public String getLogText() {
+		return JsonUtil.convert(tree.cells);
 	}
 
 }

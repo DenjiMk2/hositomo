@@ -103,11 +103,11 @@ public class TextTree {
 	 */
 	public void insert(String s, int offset) {// TODO offsetの値が不正だった場合のチェック
 		Cell target = start;
-		System.out.println(cells);
+//		System.out.println(cells);
 		while (offset > 0) {
 			target = next(target);
-			System.out.println("string = "+s+" off = "+offset);
-			System.out.println(target);
+//			System.out.println("string = "+s+" off = "+offset);
+//			System.out.println(target);
 			offset -= target.text.length();
 		}
 		if (offset != 0) {
